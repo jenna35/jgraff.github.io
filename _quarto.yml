@@ -1,0 +1,37 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Jenna Graff"
+  navbar:
+    background: primary
+    search: true
+    left:
+      - text: "Home"
+        file: index.qmd
+      - text: "Mini-Project 1"
+        file: maps.qmd
+
+sidebar:
+  - id: mini_project1
+    title: "Mini Project 1"
+    contents:
+    - maps.qmd
+     
+page-footer:
+  left: |
+      &copy; Jenna Graff, 2024<br>
+      All content licensed under <i class='bi-badge-cc'></i>
+      [(CC BY-NC-SA 4.0)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+  right: |
+      Site built with <a href='https://quarto.org/'>Quarto</a>
+
+format:
+  html:
+    theme: minty
+    css: styles.css
+    toc: true
+    code-overflow: wrap
+
+editor: visual

@@ -1,0 +1,35 @@
+---
+title: "Home"
+about:
+  id: intro-heading
+  template: trestles
+  image: profilepic.jpg
+  image-shape: rounded
+  links:
+    - icon: envelope
+      href: mailto:graff4@stolaf.edu
+    - icon: github
+      href: https://github.com/jenna35
+
+---
+
+:::{#intro-heading}
+
+## Jenna Graff
+
+### Education
+
+- Eastview High School
+
+- St. Olaf College
+  - Major: Environmental Studies (Social Science)
+  - Concentration: Statistics and Data Science
+:::
+
+### Get in Touch
+
+**Email**: <a href='mailto:graff4@stolaf.edu'>graff4 at stolaf.edu</a>
+
+**Address**: 1500 St. Olaf Ave, Northfield, MN 55057
+
+**Phone**: 612-709-2210

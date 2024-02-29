@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Home",
+    "section": "",
+    "text": "Eastview High School\nSt. Olaf College\n\nMajor: Environmental Studies (Social Science)\nConcentration: Statistics and Data Science"
+  },
+  {
+    "objectID": "about.html#jenna-graff",
+    "href": "about.html#jenna-graff",
+    "title": "Home",
+    "section": "",
+    "text": "Eastview High School\nSt. Olaf College\n\nMajor: Environmental Studies (Social Science)\nConcentration: Statistics and Data Science"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "Eastview High School\nSt. Olaf College\n\nMajor: Environmental Studies (Social Science)\nConcentration: Statistics and Data Science"
+  },
+  {
+    "objectID": "index.html#jenna-graff",
+    "href": "index.html#jenna-graff",
+    "title": "Home",
+    "section": "",
+    "text": "Eastview High School\nSt. Olaf College\n\nMajor: Environmental Studies (Social Science)\nConcentration: Statistics and Data Science"
+  },
+  {
+    "objectID": "maps.html",
+    "href": "maps.html",
+    "title": "Mini-Project 1",
+    "section": "",
+    "text": "February 28th, 2024\n\n\nUS States\n\nIntroduction\nThe dataset that I found to join with our US states data is from the Urban Data Catalog. This data aims to measure the intersections of climate change, food system resilience, and racial equity. Variables measured include household food insecurity rates, costs per meal, percentage of households receiving SNAP, agricultural production, and percentage of households with low store access. A full pdf with variable definitions can be found here.\n\n\nMap\nI chose to make my map measuring the average cost per meal in each US state.\n\n\n\n\n\n\n\nSummary\nFrom this map, we can visualize that high meal costs correlate more strongly with states on the coasts of the US. Costs range from about $2.90 to $4.50. Average meal prices are highest in District of Columbia, Massachusetts, and Rhode Island. Lowest prices are in Kentucky, Texas, and Indiana. The following tables show the exact average costs for the five highest and five lowest states.\n\n\n\n\n\nstate_name\navg_cost_per_meal\n\n\n\n\ndistrict of columbia\n4.490000\n\n\nmassachusetts\n4.201429\n\n\nrhode island\n4.174000\n\n\nvermont\n4.045714\n\n\nconnecticut\n3.906250\n\n\n\n\n\n\n\n\n\n\n\n\nstate_name\navg_cost_per_meal\n\n\n\n\nkentucky\n2.906000\n\n\ntexas\n2.930669\n\n\nindiana\n2.950761\n\n\narkansas\n2.972533\n\n\nwest virginia\n3.021818\n\n\n\n\n\n\n\n\n\n\nWisconsin Districts\n\nIntroduction\nIn February of 2024, Wisconsin’s governor signed an act that will begin the process of redistricting. Wisconsin’s districts have been considered some of the most gerrymandered districts in the country, since the districts were decided in 2011. This has cemented a republican majority, even if they represent close to, or even less than 50% of voters. This new map of congressional districts may change the results of following elections in Wisconsin.\n\n\nMaps\nThe following two maps show the election results in the house of representatives in 2016. This first one shows which party won in each district.\n\n\n\n\n\nThe second map shows the margins by which the party won that district.\n\n\n\n\n\n\n\nSummary\nIn these maps, particularly the second one, it can be seen that republicans had close margins in their races, sometimes winning by only a little over 50%. This is best seen in district 6. Democrats are clustered more heavily in districts 2 and 3. How these margins will change with new congressional district lines will be interesting with the coming 2024 election.\n\n\n\nSources\n\nFederal Election Commission\nUrban Data Catalog"
+  },
+  {
+    "objectID": "maps.html#jenna-graff",
+    "href": "maps.html#jenna-graff",
+    "title": "Home",
+    "section": "",
+    "text": "Eastview High School\nSt. Olaf College\n\nMajor: Environmental Studies (Social Science)\nConcentration: Statistics and Data Science"
+  },
+  {
+    "objectID": "maps2.html",
+    "href": "maps2.html",
+    "title": "Wisconsin Congressional Districts",
+    "section": "",
+    "text": "maps about wisconsin :/"
+  }
+]

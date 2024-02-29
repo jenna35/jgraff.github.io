@@ -1,0 +1,197 @@
+---
+title: "Mini-Project 1"
+---
+
+#### February 28th, 2024
+
+# US States
+
+```{r}
+#| include: false
+
+library(tidyverse)
+library(poliscidata)
+library(kableExtra)
+library(maps)
+library(sf)
+library(ggspatial)
+
+us_states <- map_data("state")
+head(us_states)
+
+food_data <- read_csv(("~/MSCS 264/data/raw_and_percentile_1.csv"))
+
+food_data <- food_data |>
+  mutate(state_name = str_to_lower(state_name)) |>
+  select(state_name, cost_per_meal, fi_rate_overall) |>
+  group_by(state_name) |>
+  summarize(avg_cost_per_meal = mean(cost_per_meal),
+            avg_fi_rate_overall = mean(fi_rate_overall))
+
+map_food_data <- food_data |>
+  right_join(us_states, by = c("state_name" = "region"))
+```
+
+### Introduction
+
+The dataset that I found to join with our US states data is from the [Urban Data Catalog](https://datacatalog.urban.org/dataset/food-systems-resilience-and-equity). This data aims to measure the intersections of climate change, food system resilience, and racial equity. Variables measured include household food insecurity rates, costs per meal, percentage of households receiving SNAP, agricultural production, and percentage of households with low store access. A full pdf with variable definitions can be found [here](https://datacatalog.urban.org/sites/default/files/data-dictionary-files/technical-appendix.pdf).
+
+### Map
+
+I chose to make my map measuring the average cost per meal in each US state.
+
+```{r}
+#| echo: false
+map_food_data |>
+  ggplot(mapping = aes(x = long, y = lat,
+                          group = group)) + 
+  geom_polygon(aes(fill = avg_cost_per_meal), color = "black") + 
+  coord_map() + 
+  theme_void() +  
+  scale_fill_distiller(palette = 3, direction = 1,
+                       limits=c(2.5,4.5)) +
+  labs(title = "Average Cost Per Meal by US State",
+       fill = "Cost in Dollars")
+  
+```
+
+### Summary
+
+From this map, we can visualize that high meal costs correlate more strongly with states on the coasts of the US. Costs range from about \$2.90 to \$4.50. Average meal prices are highest in District of Columbia, Massachusetts, and Rhode Island. Lowest prices are in Kentucky, Texas, and Indiana. The following tables show the exact average costs for the five highest and five lowest states.
+
+```{r}
+#| echo: false
+map_food_data |>
+  group_by(state_name) |>
+  summarize(avg_cost_per_meal = mean(avg_cost_per_meal)) |>
+  slice_max(avg_cost_per_meal, n = 5) |>
+  kable() |>
+  kable_styling()
+```
+
+```{r}
+#| echo: false
+map_food_data |>
+  group_by(state_name) |>
+  summarize(avg_cost_per_meal = mean(avg_cost_per_meal)) |>
+  slice_min(avg_cost_per_meal, n = 5) |>
+  kable() |>
+  kable_styling()
+```
+
+# Wisconsin Districts
+
+```{r}
+#| include: false
+#| message: false
+#| warning: false
+library(fec16)
+
+results_house <- results_house
+
+district_elections <- results_house |>
+  mutate(district = parse_number(district_id)) |>
+  group_by(state, district) |>
+  summarize(
+    N = n(), 
+    total_votes = sum(general_votes, na.rm = TRUE),
+    d_votes = sum(ifelse(party == "DEM", general_votes, 0), na.rm = TRUE),
+    r_votes = sum(ifelse(party == "REP", general_votes, 0), na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(
+    other_votes = total_votes - d_votes - r_votes,
+    r_prop = r_votes / total_votes,  
+    winner = ifelse(r_votes > d_votes, "Republican", "Democrat")
+  )
+
+wi_results <- district_elections |>
+  filter(state == "WI")
+
+wi_results |>
+  summarize(
+    N = n(), 
+    state_votes = sum(total_votes), 
+    state_d = sum(d_votes), 
+    state_r = sum(r_votes)
+  ) |>
+  mutate(
+    d_prop = state_d / state_votes, 
+    r_prop = state_r / state_votes
+  )
+
+wi_results |>
+  select(district, r_prop, winner) |>
+  arrange(desc(r_prop))
+
+src <- "http://cdmaps.polisci.ucla.edu/shp/districts113.zip"
+lcl_zip <- fs::path(tempdir(), "districts113.zip")
+download.file(src, destfile = lcl_zip)
+lcl_districts <- fs::path(tempdir(), "districts113")
+unzip(lcl_zip, exdir = lcl_districts)
+dsn_districts <- fs::path(lcl_districts, "districtShapes")
+
+st_layers(dsn_districts)
+
+districts <- st_read(dsn_districts, layer = "districts113") |>
+  mutate(DISTRICT = parse_number(as.character(DISTRICT)))
+head(districts, width = Inf)
+class(districts)
+
+wi_shp <- districts |>
+  filter(STATENAME == "Wisconsin")
+
+wi_shp |>
+  st_geometry() |>
+  plot(col = gray.colors(nrow(wi_shp)))
+
+wi_merged <- wi_shp |>
+  st_transform(4326) |>
+  inner_join(wi_results, by = c("DISTRICT" = "district"))
+head(wi_merged, width = Inf)
+```
+
+### Introduction
+
+In February of 2024, Wisconsin's governor signed an act that will [begin the process of redistricting](https://www.jsonline.com/story/news/politics/elections/2024/02/22/wisconsin-has-new-legislative-maps-are-congressional-maps-next/72697386007/). Wisconsin's districts have been considered [some of the most gerrymandered districts in the country](https://www.theguardian.com/us-news/2023/nov/20/deliberate-and-anti-democratic-wisconsin-grapples-with-partisan-gerrymandering#:~:text=The%20case%2C%20Clarke%20v%20Wisconsin,most%20gerrymandered%20in%20the%20US.), since the districts were decided in 2011. This has cemented a republican majority, even if they represent close to, or even less than 50% of voters. This new map of congressional districts may change the results of following elections in Wisconsin.
+
+### Maps
+
+The following two maps show the election results in the house of representatives in 2016. This first one shows which party won in each district.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+wi <- ggplot(data = wi_merged, aes(fill = winner)) +
+  annotation_map_tile(zoom = 6, type = "osm", progress = "none") + 
+  geom_sf(alpha = 0.5) +
+  scale_fill_manual("Winner", values = c("blue", "red")) + 
+  geom_sf_label(aes(label = DISTRICT), fill = "white") + 
+  theme_void()
+wi
+```
+
+The second map shows the margins by which the party won that district.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+wi +
+  aes(fill = r_prop) + 
+  scale_fill_distiller(
+    "Proportion\nRepublican", 
+    palette = "RdBu", 
+    limits = c(0.2, 0.8)
+  )
+```
+
+### Summary
+
+In these maps, particularly the second one, it can be seen that republicans had close margins in their races, sometimes winning by only a little over 50%. This is best seen in district 6. Democrats are clustered more heavily in districts 2 and 3. How these margins will change with new congressional district lines will be interesting with the coming 2024 election.
+
+# Sources
+
+-   [Federal Election Commission](https://www.fec.gov/data/browse-data/?tab=bulk-data)
+-   [Urban Data Catalog](https://datacatalog.urban.org/dataset/food-systems-resilience-and-equity)
