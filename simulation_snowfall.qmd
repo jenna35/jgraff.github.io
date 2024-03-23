@@ -1,0 +1,197 @@
+---
+title: "Mini-Project 2"
+editor_options: 
+  chunk_output_type: console
+---
+
+#### March 22nd, 2024
+
+# Snowfall in 2023-2024
+
+##### Source: [Minnesota DNR](https://www.dnr.state.mn.us/climate/historical/acis_stn_data_monthly_table.html?sid=mspthr&sname=Twin%20Cities%20Area&sdate=1884-07-01&edate=por&element=snow&span=season&counts=no)
+
+### Introduction
+
+```{r}
+#| include: FALSE
+
+library(tidyverse)
+library(ggplot2)
+library(kableExtra)
+library(dplyr)
+snowfall_list <- read.csv("~/Mscs 264/projects/jgraff.github.io/Snowfall Data - Sheet1.csv")
+snowfall_tbl <- as_tibble(snowfall_list)
+```
+
+```{r}
+#| include: FALSE
+# all the code that gets clean data but should probably be functionized before turning in
+snowfall <- snowfall_tbl |> 
+  mutate(July = ifelse(July == "M", NA, July),
+         July = ifelse(July == "T", 0, July),
+         July = ifelse(July == "T*", NA, July),
+         July = parse_number(July),
+         August = ifelse(August == "M", NA, August),
+         August = ifelse(August == "T", 0, August),
+         August = ifelse(August == "T*", NA, August),
+         August = parse_number(August),
+         September = ifelse(September == "M", NA, September),
+         September = ifelse(September == "T", 0, September),
+         September = ifelse(September == "T*", NA, September),
+         September = parse_number(September),
+         October = ifelse(October == "M", NA, October),
+         October = ifelse(October == "T", 0, October),
+         October = ifelse(October == "T*", NA, October),
+         October = parse_number(October),
+         November = ifelse(November == "M", NA, November),
+         November = ifelse(November == "T", 0, November),
+         November = ifelse(November == "T*", NA, November),
+         November = parse_number(November),
+         December = ifelse(December == "M", NA, December),
+         December = ifelse(December == "T", 0, December),
+         December = ifelse(December == "T*", NA, December),
+         December = parse_number(December),
+         March = ifelse(March == "M", NA, March),
+         March = ifelse(March == "T", 0, March),
+         March = ifelse(March == "T*", NA, March),
+         March = parse_number(March),
+         April = ifelse(April == "M", NA, April),
+         April = ifelse(April == "T", 0, April),
+         April = ifelse(April == "T*", NA, April),
+         April = parse_number(April),
+         May = ifelse(May == "M", NA, May),
+         May = ifelse(May == "T", 0, May),
+         May = ifelse(May == "T*", NA, May),
+         May = parse_number(May),
+         June = ifelse(June == "M", NA, June),
+         June = ifelse(June == "T", 0, June),
+         June = ifelse(June == "T*", NA, June),
+         June = parse_number(June),
+         Season = ifelse(Season == "M", NA, Season),
+         Season = ifelse(Season == "T", 0, Season),
+         Season = ifelse(Season == "T*", NA, Season),
+         Season = parse_number(Season),
+         winter_total_snow = October + November + December + January +   
+           February) |>
+  select(c(October, November, December, January, February, Year, 
+           winter_total_snow, Season)) |>
+  pivot_longer(October:February, names_to = "month", 
+           values_to = "snow_per_month") |>
+  mutate(year_group = ifelse(winter_total_snow == 14.3, "2024", "pre-2024")) 
+```
+
+The amount of snowfall this year so far (from the months of October through February) has amounted to 14.3 inches, and has seemed like much less than usual. I decided for this project to look through Minnesota's Department of Natural Resources data in the Twin Cities and run statistical tests comparing this year to other years. I chose to run simulations to find where this year's snowfall lies in comparison to other years to see if it is truly statistically less snow than other years.
+
+Before doing any analysis on this data, it needed to be cleaned. The columns were mostly character vectors, with some double vectors. This made it difficult to pivot, parse, and convert missing data to NAs; each step had to be done to each column instead of the whole data set at once. The values 'T' for trace needed to be converted to zeros, and 'M' for missing needed to be changed into NA values. Finally, parse_number() changed the character vectors into double vectors, allowing R to find the mean and other statistics. This is the function I attempted to use:
+
+```{r}
+#| error: FALSE
+fix_columns <- function(data, x) {
+  data |>
+    mutate(x = ifelse({{ x }} == "M", NA, {{ x }}),
+           x = ifelse({{ x }} == "T", 0, {{ x }}),
+           x = ifelse({{ x }} == "T*", NA, {{ x }}),
+           x = parse_number({{ x }}))
+}
+```
+
+This first graph provides an initial look at how much snow the Twin Cities have gotten each year since 1884.
+
+```{r}
+#| echo: FALSE
+snowfall |>
+  ggplot(aes(x = winter_total_snow)) +
+  geom_histogram(bins = 25) +
+  labs(x = "Snowfall in Winter Months (October-February) in Inches",
+       y = "Count",
+       title = "Snowfall from 1884-2024 in the Twin Cities",
+       subtitle = "from limited months due to missing data from 2024",
+       caption = "Source: MN DNR")+
+  theme_classic()
+```
+
+The data seems to be right-skewed, with possible high outliers. Of course, this data would change with inclusion of the months March and April, but as those haven't happened yet in 2024, they can't yet be compared to this year.
+
+
+### Simulation
+
+This is the code I used to run a simulation and create a randomized data set of snowfall in 140 years. 
+
+First, this chunk shows the true difference between 2023-2024 season's snowfall, and the snowfall each season from 1884-2023. This is an observed difference of about 4 inches each month. This means that on average, this winter season has had 4 inches less snow than other months on average. This is my alternate hypothesis.
+
+```{r}
+snowfall_summary <- snowfall |>
+  group_by(year_group) |>
+  summarize(mean_snowfall = mean(snow_per_month))
+observed_diff <- snowfall_summary[[2]][2] - snowfall_summary[[2]][1]
+```
+
+The next step in this simulation is to create simulated data for each year grouping: both 2023-2024 and 1884-1885 through 2022-2023. This multiplies our original observed difference by 1000, assuming that the true difference is zero. This is the null hypothesis, in contrast to my alternate hypothesis in the chunk above.
+
+```{r}
+simulated_diffs <- vector("double", 1000)
+for(i in 1:1000) {
+  snowfall_summary <- snowfall |>
+    mutate(year_group = sample(year_group)) |>
+    group_by(year_group) |>
+    summarize(mean_snowfall = mean(snow_per_month))
+  simulated_diffs[[i]] <- snowfall_summary[[2]][2] - snowfall_summary[[2]][1]
+}  
+```
+
+### Results
+
+Using this new randomized data, I created a histogram showing the spread of the simulated differences between this season and all other seasons, assuming the null hypothesis. The red vertical line represents the difference of 4 from this year.
+
+```{r}
+#| echo: FALSE
+null_values <- tibble(simulated_diffs = simulated_diffs)
+ggplot(null_values, aes(x = simulated_diffs)) +
+  geom_histogram(bins = 25) +
+  geom_vline(xintercept = observed_diff, color = "red") +
+  labs(x = "Simulated Differences", y = "Count") +
+  theme_classic()
+```
+
+Using the simulated data, we can pull the p-value of this year's snowfall to see if it falls within the upper 5% of the spread.
+
+The p-value is 0.182.
+
+```{r}
+#| include: FALSE
+p_value <- sum(abs(simulated_diffs) >= abs(observed_diff)) / 1000
+p_value
+```
+
+### Discussion
+
+#### Statistically Insignifiant Results
+
+Because of the p-value this simulation produced at a significance level of 0.05, the amount of snow this year would not be considered significantly less than usual. About 18% of the time that this simulation is run, a difference of 4 inches per month or more will be observed. Therefore, this season's amount of snowfall isn't statistically unusual.
+
+#### Areas for Future Research
+
+There are a few changes I would make to this simulation if I were to run it again, or if I had more time.
+
+##### Incomplete Data
+
+This graph shows snowfall for the whole year, not just the months October through February.
+
+```{r}
+#| echo: FALSE
+#| warning: FALSE
+snowfall |>
+  ggplot(aes(x = Season)) +
+  geom_histogram(bins = 25) +
+  labs(x = "Snowfall per Season (July-June) in Inches",
+       y = "Count",
+       title = "Snowfall from 1884-2024 in the Twin Cities",
+       caption = "Source: MN DNR") +
+  theme_classic()
+```
+
+One potential shortcoming of the simulation I created is that the data doesn't cover months that often get large amounts of snowfall. If I were to run this again in two months with data from March and April, the results might change. As this graph shows, there are less gaps when including all of the months, and it would increase the mean, and alter the standard deviation.
+
+##### Other Applications
+
+I would also be interested in running this test for last year's snowfall! In 2022-2023, the Twin Cities got 90.3 inches of snow. From the histogram, this seems like one of the higher years on record. Now that I have this simulation set up, it would be easy to alter it to run different tests, both on this data set, and on others I find. 

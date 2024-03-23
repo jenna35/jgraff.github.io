@@ -10,20 +10,19 @@ about:
       href: mailto:graff4@stolaf.edu
     - icon: github
       href: https://github.com/jenna35
-
 ---
 
-:::{#intro-heading}
-
+::: {#intro-heading}
 ## Jenna Graff
 
 ### Education
 
-- Eastview High School
+-   Eastview High School
 
-- St. Olaf College
-  - Major: Environmental Studies (Social Science)
-  - Concentration: Statistics and Data Science
+-   St. Olaf College
+
+    -   Major: Environmental Studies (Social Science)
+    -   Concentration: Statistics and Data Science
 :::
 
 ### Get in Touch

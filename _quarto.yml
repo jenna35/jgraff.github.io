@@ -12,12 +12,18 @@ website:
         file: index.qmd
       - text: "Mini-Project 1"
         file: maps.qmd
+      - text: "Mini-Project 2"
+        file: simulation_snowfall.qmd
 
 sidebar:
   - id: mini_project1
     title: "Mini Project 1"
     contents:
     - maps.qmd
+  - id: mini_project2
+    title: "Mini Project 2"
+    contents:
+    - simulation_snowfall.qmd
      
 page-footer:
   left: |
