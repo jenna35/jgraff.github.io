@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Jenna Graff - Mini-Project 1</title>
+<title>Jenna Graff - Mini-Project 3</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./maps.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./maps.html" rel="" target="">
  <span class="menu-text">Maps</span></a>
   </li>  
   <li class="nav-item">
@@ -97,7 +97,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Simulation and Iteration</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./strings_project.html" rel="" target="">
+    <a class="nav-link active" href="./strings_project.html" rel="" target="" aria-current="page">
  <span class="menu-text">String Analysis</span></a>
   </li>  
 </ul>
@@ -116,19 +116,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#us-states" id="toc-us-states" class="nav-link active" data-scroll-target="#us-states">US States</a>
+  <li><a href="#minnesota-birds" id="toc-minnesota-birds" class="nav-link active" data-scroll-target="#minnesota-birds">Minnesota Birds</a>
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#map" id="toc-map" class="nav-link" data-scroll-target="#map">Map</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#colors" id="toc-colors" class="nav-link" data-scroll-target="#colors">Colors</a></li>
+  <li><a href="#names" id="toc-names" class="nav-link" data-scroll-target="#names">Names</a></li>
+  <li><a href="#alliterations" id="toc-alliterations" class="nav-link" data-scroll-target="#alliterations">Alliterations</a></li>
+  <li><a href="#largest-birds" id="toc-largest-birds" class="nav-link" data-scroll-target="#largest-birds">Largest Birds</a></li>
+  <li><a href="#wordcloud" id="toc-wordcloud" class="nav-link" data-scroll-target="#wordcloud">Wordcloud</a></li>
   </ul></li>
-  <li><a href="#wisconsin-districts" id="toc-wisconsin-districts" class="nav-link" data-scroll-target="#wisconsin-districts">Wisconsin Districts</a>
-  <ul class="collapse">
-  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
-  <li><a href="#maps" id="toc-maps" class="nav-link" data-scroll-target="#maps">Maps</a></li>
-  <li><a href="#summary-1" id="toc-summary-1" class="nav-link" data-scroll-target="#summary-1">Summary</a></li>
-  </ul></li>
-  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
   </ul>
 </nav>
     </div>
@@ -137,7 +133,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Mini-Project 1</h1>
+<h1 class="title">Mini-Project 3</h1>
 </div>
 
 
@@ -152,56 +148,173 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="february-28th-2024" class="level4">
-<h4 class="anchored" data-anchor-id="february-28th-2024">February 28th, 2024</h4>
+<section id="april-17-2024" class="level4">
+<h4 class="anchored" data-anchor-id="april-17-2024">April 17, 2024</h4>
 </section>
-<section id="us-states" class="level1">
-<h1>US States</h1>
+<section id="minnesota-birds" class="level1">
+<h1>Minnesota Birds</h1>
+<section id="source-kaggle.com---minnesota-birds" class="level5">
+<h5 class="anchored" data-anchor-id="source-kaggle.com---minnesota-birds">Source: <a href="https://www.kaggle.com/datasets/hannahcollins/minnesota-birds?resource=download">kaggle.com - Minnesota Birds</a></h5>
+</section>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>The dataset that I found to join with our US states data is from the <a href="https://datacatalog.urban.org/dataset/food-systems-resilience-and-equity">Urban Data Catalog</a>. This data aims to measure the intersections of climate change, food system resilience, and racial equity. Variables measured include household food insecurity rates, costs per meal, percentage of households receiving SNAP, agricultural production, and percentage of households with low store access. A full pdf with variable definitions can be found <a href="https://datacatalog.urban.org/sites/default/files/data-dictionary-files/technical-appendix.pdf">here</a>.</p>
+<p>This unit has a broad reach, because strings and characters are everywhere! Our task to find a data set to analyze with strings was almost too easy because the options are endless. I found a data set I liked that had a list of all birds that have been found in Minnesota. Using string functions and regular expressions, I ran a variety of tests to find patterns in bird names, such as colors, possessive apostrophes, and alliterations.</p>
 </section>
-<section id="map" class="level3">
-<h3 class="anchored" data-anchor-id="map">Map</h3>
-<p>I chose to make my map measuring the average cost per meal in each US state.</p>
+<section id="colors" class="level3">
+<h3 class="anchored" data-anchor-id="colors">Colors</h3>
+<p>For the first analysis of these birds, I looked at which colors birds are named for most often. I chose to only extract basic colors of the rainbow, plus black, gray, and white. From the graph, we can see that birds in Minnesota are mostly named for the color black, then red and white.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="maps_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+<p><img src="strings_project_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="summary" class="level3">
-<h3 class="anchored" data-anchor-id="summary">Summary</h3>
-<p>From this map, we can visualize that high meal costs correlate more strongly with states on the coasts of the US. Costs range from about $2.90 to $4.50. Average meal prices are highest in District of Columbia, Massachusetts, and Rhode Island. Lowest prices are in Kentucky, Texas, and Indiana. The following tables show the exact average costs for the five highest and five lowest states.</p>
+<section id="names" class="level3">
+<h3 class="anchored" data-anchor-id="names">Names</h3>
+<p>A hot topic in the birding community is whether a large chunk of birds should be renamed. What’s causing this need for change? Racism, mostly. And sexism. The <a href="https://americanornithology.org/">American Ornithological Society</a> made the decision to <a href="https://americanornithology.org/about/english-bird-names-project/">rename all birds whose names are eponyms</a>, or named directly for a person. Many birds are named after historical figures, often whoever discovered them. More often than not, these people were hurtful and the legacies they carry on through the names of birds can create an environment minority birders don’t feel they are welcome in.</p>
+<p><a href="https://www.npr.org/2023/11/01/1209660753/these-american-birds-and-dozens-more-will-be-renamed-to-remove-human-monikers">This article</a> by NPR highlights the way some of these bird’s names have been exclusionary in the past, and how some are responding to this change. In an interview with Kenn Kaufman, a longtime author of bird guides, he tells of how he came around to the change.</p>
+<p>Another compelling reason for this change is to showcase a unique characteristic of the bird. For example, ‘Townsend’s Warbler’ doesn’t bring a vivid picture to one’s mind, but ‘Black-Throated Gray Warbler’ does, or ‘Hermit Warbler’ indicates something about the bird’s behavior.</p>
+<p>This following table provides a look at the names of birds that will be changing in the near future! If you see birds you know and love, what do you think they should be named? The American Ornithological Society has committed to including the public in deciding new names, so your input could be taken into account!</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="table table-striped table-sm small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">state_name</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">avg_cost_per_meal</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Name</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">district of columbia</td>
-<td style="text-align: right;">4.490000</td>
+<td style="text-align: left;">Ross's goose</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">massachusetts</td>
-<td style="text-align: right;">4.201429</td>
+<td style="text-align: left;">Barrow's goldeneye</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">rhode island</td>
-<td style="text-align: right;">4.174000</td>
+<td style="text-align: left;">Clark's grebe</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">vermont</td>
-<td style="text-align: right;">4.045714</td>
+<td style="text-align: left;">Chuck-will's-widow</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">connecticut</td>
-<td style="text-align: right;">3.906250</td>
+<td style="text-align: left;">Rivoli's hummingbird</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Anna's hummingbird</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Costa's hummingbird</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wilson's plover</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Baird's sandpiper</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wilson's snipe</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Wilson's phalarope</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sabine's gull</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bonaparte's gull</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ross's gull</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Franklin's gull</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Forster's tern</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cooper's hawk</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Swainson's hawk</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lewis's woodpecker</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Williamson's sapsucker</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cassin's kingbird</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Say's phoebe</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bell's vireo</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Clark's nutcracker</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bewick's wren</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Townsend's solitaire</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Swainson's thrush</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sprague's pipit</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cassin's finch</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Smith's longspur</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Brewer's sparrow</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Harris's sparrow</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LeConte's sparrow</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nelson's sparrow</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Baird's sparrow</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Henslow's sparrow</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lincoln's sparrow</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bullock's oriole</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Scott's oriole</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Brewer's blackbird</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MacGillivray's warbler</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kirtland's warbler</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Townsend's warbler</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wilson's warbler</td>
 </tr>
 </tbody>
 </table>
@@ -209,35 +322,135 @@ ul.task-list li input[type="checkbox"] {
 
 </div>
 </div>
+</section>
+<section id="alliterations" class="level3">
+<h3 class="anchored" data-anchor-id="alliterations">Alliterations</h3>
+<p>As a fun little analysis of this data set, I decided to look for alliterations in these bird’s names! Some of them are quite silly to say out loud.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">state_name</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">avg_cost_per_meal</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Name</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Category</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">kentucky</td>
-<td style="text-align: right;">2.906000</td>
+<td style="text-align: left;">Greater White-Fronted Goose</td>
+<td style="text-align: left;">Ducks, geese, and waterfowl</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">texas</td>
-<td style="text-align: right;">2.930669</td>
+<td style="text-align: left;">Surf Scoter</td>
+<td style="text-align: left;">Ducks, geese, and waterfowl</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">indiana</td>
-<td style="text-align: right;">2.950761</td>
+<td style="text-align: left;">Passenger Pigeon</td>
+<td style="text-align: left;">Pigeons and doves</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">arkansas</td>
-<td style="text-align: right;">2.972533</td>
+<td style="text-align: left;">American Avocet</td>
+<td style="text-align: left;">Stilts and avocets</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">west virginia</td>
-<td style="text-align: right;">3.021818</td>
+<td style="text-align: left;">Piping Plover</td>
+<td style="text-align: left;">Plovers and lapwings</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sharp-Tailed Sandpiper</td>
+<td style="text-align: left;">Sandpipers and allies</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Stilt Sandpiper</td>
+<td style="text-align: left;">Sandpipers and allies</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Semipalmated Sandpiper</td>
+<td style="text-align: left;">Sandpipers and allies</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Spotted Sandpiper</td>
+<td style="text-align: left;">Sandpipers and allies</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Solitary Sandpiper</td>
+<td style="text-align: left;">Sandpipers and allies</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Glaucous-Winged Gull</td>
+<td style="text-align: left;">Gulls, terns, and skimmers</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Glaucous Gull</td>
+<td style="text-align: left;">Gulls, terns, and skimmers</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Great Black-Backed Gull</td>
+<td style="text-align: left;">Gulls, terns, and skimmers</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Great Gray Owl</td>
+<td style="text-align: left;">Owls</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Crested Caracara</td>
+<td style="text-align: left;">Falcons and caracaras</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fork-Tailed Flycatcher</td>
+<td style="text-align: left;">Tyrant flycatchers</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Western Wood-Pewee</td>
+<td style="text-align: left;">Tyrant flycatchers</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tufted Titmouse</td>
+<td style="text-align: left;">Tits, chickadees, and titmice</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Winter Wren</td>
+<td style="text-align: left;">Wrens</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lapland Longspur</td>
+<td style="text-align: left;">Longspurs and snow buntings</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Savannah Sparrow</td>
+<td style="text-align: left;">New World sparrows</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Song Sparrow</td>
+<td style="text-align: left;">New World sparrows</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Swamp Sparrow</td>
+<td style="text-align: left;">New World sparrows</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Orchard Oriole</td>
+<td style="text-align: left;">Troupials and allies</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Brewer's Blackbird</td>
+<td style="text-align: left;">Troupials and allies</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Great-Tailed Grackle</td>
+<td style="text-align: left;">Troupials and allies</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Worm-Eating Warbler</td>
+<td style="text-align: left;">New World warblers</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Black-Throated Blue Warbler</td>
+<td style="text-align: left;">New World warblers</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Wilson's Warbler</td>
+<td style="text-align: left;">New World warblers</td>
 </tr>
 </tbody>
 </table>
@@ -245,42 +458,45 @@ ul.task-list li input[type="checkbox"] {
 
 </div>
 </div>
-</section>
-</section>
-<section id="wisconsin-districts" class="level1">
-<h1>Wisconsin Districts</h1>
-<section id="introduction-1" class="level3">
-<h3 class="anchored" data-anchor-id="introduction-1">Introduction</h3>
-<p>In February of 2024, Wisconsin’s governor signed an act that will <a href="https://www.jsonline.com/story/news/politics/elections/2024/02/22/wisconsin-has-new-legislative-maps-are-congressional-maps-next/72697386007/">begin the process of redistricting</a>. Wisconsin’s districts have been considered <a href="https://www.theguardian.com/us-news/2023/nov/20/deliberate-and-anti-democratic-wisconsin-grapples-with-partisan-gerrymandering#:~:text=The%20case%2C%20Clarke%20v%20Wisconsin,most%20gerrymandered%20in%20the%20US.">some of the most gerrymandered districts in the country</a>, since the districts were decided in 2011. This has cemented a republican majority, even if they represent close to, or even less than 50% of voters. This new map of congressional districts may change the results of following elections in Wisconsin.</p>
-</section>
-<section id="maps" class="level3">
-<h3 class="anchored" data-anchor-id="maps">Maps</h3>
-<p>The following two maps show the election results in the house of representatives in 2016. This first one shows which party won in each district.</p>
+<p>Some of these bird categories have more than one alliteration and seem like they could be a significant proportion of their category - especially sandpipers! I decided to see if these groupings of birds had high proportions of alliterative names.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="maps_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="strings_project_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>The second map shows the margins by which the party won that district.</p>
+<p>As it turns out, the highest proportion of alliterative names in these groups is for the stilts and avocets - of which there are only two.</p>
+</section>
+<section id="largest-birds" class="level3">
+<h3 class="anchored" data-anchor-id="largest-birds">Largest Birds</h3>
+<p>Although this section doesn’t use string functions to carry out analysis, we learned about tree maps in class, and I wanted to use an application of this visualization in my project.</p>
+<p>These following tree maps show the largest groups of birds on average by their wingspan, length, and body mass. Larger squares correspond with larger wingpans, lengths or body masses.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="maps_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="strings_project_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="strings_project_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="strings_project_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="summary-1" class="level3">
-<h3 class="anchored" data-anchor-id="summary-1">Summary</h3>
-<p>In these maps, particularly the second one, it can be seen that republicans had close margins in their races, sometimes winning by only a little over 50%. This is best seen in district 6. Democrats are clustered more heavily in districts 2 and 3. How these margins will change with new congressional district lines will be interesting with the coming 2024 election.</p>
-</section>
-</section>
-<section id="sources" class="level1">
-<h1>Sources</h1>
-<ul>
-<li><a href="https://www.fec.gov/data/browse-data/?tab=bulk-data">Federal Election Commission</a></li>
-<li><a href="https://datacatalog.urban.org/dataset/food-systems-resilience-and-equity">Urban Data Catalog</a></li>
-</ul>
+<section id="wordcloud" class="level3">
+<h3 class="anchored" data-anchor-id="wordcloud">Wordcloud</h3>
+<p>For a final visualization, I made a wordcloud of the common words in bird’s names. The larger words are ones that appear most frequently. I chose to make this visualization with the 120 most often occurring words. Some of the most common words, such as ‘warbler’ or ‘sparrow’, occur frequently because there are many types included in the data set.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="strings_project_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

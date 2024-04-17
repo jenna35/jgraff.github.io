@@ -1,0 +1,191 @@
+---
+title: "Mini-Project 3"
+editor_options: 
+  chunk_output_type: console
+---
+
+#### April 17, 2024
+
+# Minnesota Birds
+
+##### Source: [kaggle.com - Minnesota Birds](https://www.kaggle.com/datasets/hannahcollins/minnesota-birds?resource=download)
+
+### Introduction
+
+This unit has a broad reach, because strings and characters are everywhere! Our task to find a data set to analyze with strings was almost too easy because the options are endless. I found a data set I liked that had a list of all birds that have been found in Minnesota. Using string functions and regular expressions, I ran a variety of tests to find patterns in bird names, such as colors, possessive apostrophes, and alliterations. 
+
+```{r}
+#| include: FALSE
+library(tidyverse)
+library(stringr)
+library(ggplot2)
+library(treemap)
+library(kableExtra)
+library(ggridges)
+library(wordcloud)
+library(RColorBrewer)
+library(tidytext)
+#library(DT)
+
+mn_birds <- read.csv("~/MSCS 264/projects/jgraff.github.io/Minnesota Birds.csv")
+```
+
+### Colors
+
+For the first analysis of these birds, I looked at which colors birds are named for most often. I chose to only extract basic colors of the rainbow, plus black, gray, and white. From the graph, we can see that birds in Minnesota are mostly named for the color black, then red and white.
+
+```{r}
+#| include: false
+mn_birds |>
+  select(Name) |>
+  filter(str_detect(Name, "[Rr]os[ey]"))
+```
+
+
+```{r}
+#| echo: false
+mn_birds |>
+  select(Name) |>
+  mutate(red = str_count(Name, "[Rr]ed"),
+         blue = str_count(Name, "[Bb]lue"),
+         yellow = str_count(Name, "[Yy]ellow"),
+         gray = str_count(Name, "[Gg]r[ea]y"),
+         orange = str_count(Name, "[Oo]range"),
+         purple = str_count(Name, "[Pp]urple"),
+         green = str_count(Name, "[Gg]reen"),
+         black = str_count(Name, "[Bb]lack"),
+         white = str_count(Name, "[Ww]hite")) |>
+  pivot_longer(red:white, names_to = "color") |>
+  filter(value == 1) |>
+  mutate(color = fct_relevel(color, "black", "red", "white", "yellow", "blue", "gray", "green", "purple", "orange")) |>
+  ggplot(aes(x = color, fill = color)) +
+  geom_bar(show.legend = FALSE) +
+  labs(title = "Number of bird names with each color", 
+       x = "Color",
+       y = "") +
+  scale_fill_manual(values = c("gray12", "firebrick2","white", "gold", "dodgerblue2", "gray", "springgreen3", "orchid3", "orange"))
+```
+
+### Names
+
+A hot topic in the birding community is whether a large chunk of birds should be renamed. What's causing this need for change? Racism, mostly. And sexism. The [American Ornithological Society](https://americanornithology.org/) made the decision to [rename all birds whose names are eponyms](https://americanornithology.org/about/english-bird-names-project/), or named directly for a person. Many birds are named after historical figures, often whoever discovered them. More often than not, these people were hurtful and the legacies they carry on through the names of birds can create an environment minority birders don't feel they are welcome in.
+
+[This article](https://www.npr.org/2023/11/01/1209660753/these-american-birds-and-dozens-more-will-be-renamed-to-remove-human-monikers) by NPR highlights the way some of these bird's names have been exclusionary in the past, and how some are responding to this change. In an interview with Kenn Kaufman, a longtime author of bird guides, he tells of how he came around to the change.
+
+Another compelling reason for this change is to showcase a unique characteristic of the bird. For example, 'Townsend's Warbler' doesn't bring a vivid picture to one's mind, but 'Black-Throated Gray Warbler' does, or 'Hermit Warbler' indicates something about the bird's behavior. 
+
+This following table provides a look at the names of birds that will be changing in the near future! If you see birds you know and love, what do you think they should be named? The American Ornithological Society has committed to including the public in deciding new names, so your input could be taken into account! 
+```{r}
+#| echo: false
+#birds named after people, found through possessive apostrophe
+mn_birds |>
+  select(Name) |>
+  filter(str_detect(Name, ".'s")) |>
+  kable() |>
+  kable_styling(bootstrap_options = "striped", full_width = FALSE, position = "float_right")
+```
+
+### Alliterations
+
+As a fun little analysis of this data set, I decided to look for alliterations in these bird's names! Some of them are quite silly to say out loud. 
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#alliteration
+mn_birds |>
+  select(Name, Category) |>
+  mutate(Name = str_to_lower(Name)) |>
+  filter(str_detect(Name, "(^.).* \\1")) |>
+  mutate(Name = str_to_title(Name)) |>
+  kable() |>
+  kable_styling()
+```
+Some of these bird categories have more than one alliteration and seem like they could be a significant proportion of their category - especially sandpipers! I decided to see if these groupings of birds had high proportions of alliterative names.
+
+```{r}
+#| echo: false
+#| warning: false
+mn_birds |>
+  mutate(Name = str_to_lower(Name),
+         alliterative = str_detect(Name, "(^.).* \\1"),
+         Category = fct_reorder(Category, alliterative)) |>
+  group_by(Category) |>
+  summarize(mean_alliterative = mean(alliterative),
+            across()) |>
+  filter(mean_alliterative != 0) |>
+  mutate(Category = fct_rev(fct_relevel(Category, "Stilts and avocets", "Tits, chickadees, and titmice", "Troupials and allies", "Longspurs and snow buntings", "Falcons and caracaras", "Sandpipers and allies", "Plovers and lapwings", "Wrens", "Pigeons and doves", "Gulls, terns, and skimmers", "New World sparrows", "Tyrant flycatchers", "Owls", "New World warblers", "Ducks, geese, and waterfowl"))) |>
+  ggplot(aes(y = Category, fill = alliterative)) +
+  geom_bar(position = "fill") +
+  labs(title = "Proportion of alliterative bird names", subtitle = "Grouped by category of bird", x = "Proportion", fill = "Alliterative")
+```
+As it turns out, the highest proportion of alliterative names in these groups is for the stilts and avocets - of which there are only two.
+
+
+### Largest Birds
+
+Although this section doesn't use string functions to carry out analysis, we learned about tree maps in class, and I wanted to use an application of this visualization in my project. 
+
+These following tree maps show the largest groups of birds on average by their wingspan, length, and body mass. Larger squares correspond with larger wingpans, lengths or body masses.
+```{r}
+#| echo: false
+mn_birds |>
+  mutate(wingspan = Wingspan.Min..cm.+Wingspan.Max..cm./2,
+         length = Length.Min..cm.+Length.Max..cm./2,
+         body_mass = Body.Mass.Min..g.+Body.Mass.Max..g./2) |>
+  group_by(Category) |>
+  summarize(n = n(),
+            mean_wingspan = mean(wingspan),
+            mean_length = mean(length),
+            mean_body_mass = mean(body_mass)) |>
+  treemap(index = "Category",
+        vSize = "mean_wingspan",
+        vColor = "Category",
+        title = "Mean Wingspan") 
+```
+```{r}
+#| echo: false
+mn_birds |>
+  mutate(wingspan = Wingspan.Min..cm.+Wingspan.Max..cm./2,
+         length = Length.Min..cm.+Length.Max..cm./2,
+         body_mass = Body.Mass.Min..g.+Body.Mass.Max..g./2) |>
+  group_by(Category) |>
+  summarize(n = n(),
+            mean_wingspan = mean(wingspan),
+            mean_length = mean(length),
+            mean_body_mass = mean(body_mass)) |>
+  treemap(index = "Category",
+        vSize = "mean_length",
+        vColor = "Category",
+        title = "Mean Length")
+```
+```{r}
+#| echo: false
+mn_birds |>
+  mutate(wingspan = Wingspan.Min..cm.+Wingspan.Max..cm./2,
+         length = Length.Min..cm.+Length.Max..cm./2,
+         body_mass = Body.Mass.Min..g.+Body.Mass.Max..g./2) |>
+  group_by(Category) |>
+  summarize(n = n(),
+            mean_wingspan = mean(wingspan),
+            mean_length = mean(length),
+            mean_body_mass = mean(body_mass)) |>
+  treemap(index = "Category",
+        vSize = "mean_body_mass",
+        vColor = "Category",
+        title = "Mean Body Mass")
+```
+
+### Wordcloud
+
+For a final visualization, I made a wordcloud of the common words in bird's names. The larger words are ones that appear most frequently. I chose to make this visualization with the 120 most often occurring words. Some of the most common words, such as 'warbler' or 'sparrow', occur frequently because there are many types included in the data set.
+```{r}
+#| echo: false
+mn_birds |>
+  select(Name) |>
+  unnest_tokens(output = word, input = Name) |>
+  count(word) |>
+  with(wordcloud(word, n, max.words = 120, 
+                 colors = brewer.pal(8, "Dark2")))
+```
+

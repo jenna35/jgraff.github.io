@@ -112,10 +112,9 @@ snowfall |>
 
 The data seems to be right-skewed, with possible high outliers. Of course, this data would change with inclusion of the months March and April, but as those haven't happened yet in 2024, they can't yet be compared to this year.
 
-
 ### Simulation
 
-This is the code I used to run a simulation and create a randomized data set of snowfall in 140 years. 
+This is the code I used to run a simulation and create a randomized data set of snowfall in 140 years.
 
 First, this chunk shows the true difference between 2023-2024 season's snowfall, and the snowfall each season from 1884-2023. This is an observed difference of about 4 inches each month. This means that on average, this winter season has had 4 inches less snow than other months on average. This is my alternate hypothesis.
 
@@ -194,4 +193,4 @@ One potential shortcoming of the simulation I created is that the data doesn't c
 
 ##### Other Applications
 
-I would also be interested in running this test for last year's snowfall! In 2022-2023, the Twin Cities got 90.3 inches of snow. From the histogram, this seems like one of the higher years on record. Now that I have this simulation set up, it would be easy to alter it to run different tests, both on this data set, and on others I find. 
+I would also be interested in running this test for last year's snowfall! In 2022-2023, the Twin Cities got 90.3 inches of snow. From the histogram, this seems like one of the higher years on record. Now that I have this simulation set up, it would be easy to alter it to run different tests, both on this data set, and on others I find.

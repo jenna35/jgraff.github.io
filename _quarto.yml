@@ -10,20 +10,26 @@ website:
     left:
       - text: "Home"
         file: index.qmd
-      - text: "Mini-Project 1"
+      - text: "Maps"
         file: maps.qmd
-      - text: "Mini-Project 2"
+      - text: "Simulation and Iteration"
         file: simulation_snowfall.qmd
+      - text: "String Analysis"
+        file: strings_project.qmd
 
 sidebar:
   - id: mini_project1
-    title: "Mini Project 1"
+    title: "Maps"
     contents:
     - maps.qmd
   - id: mini_project2
-    title: "Mini Project 2"
+    title: "Simulation and Iteration"
     contents:
     - simulation_snowfall.qmd
+  - id: mini_project3
+    title: "String Analysis"
+    contents:
+    - strings_project.qmd
      
 page-footer:
   left: |
