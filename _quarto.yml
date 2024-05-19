@@ -16,6 +16,8 @@ website:
         file: simulation_snowfall.qmd
       - text: "String Analysis"
         file: strings_project.qmd
+      - text: "Collaborative Work"
+        file: collaborative_work.qmd
 
 sidebar:
   - id: mini_project1
@@ -30,6 +32,10 @@ sidebar:
     title: "String Analysis"
     contents:
     - strings_project.qmd
+  - id: collaborative_work
+    title: "Collaborative Work"
+    contents:
+    - collaborative_work.qmd
      
 page-footer:
   left: |

@@ -12,7 +12,7 @@ editor_options:
 
 ### Introduction
 
-This unit has a broad reach, because strings and characters are everywhere! Our task to find a data set to analyze with strings was almost too easy because the options are endless. I found a data set I liked that had a list of all birds that have been found in Minnesota. Using string functions and regular expressions, I ran a variety of tests to find patterns in bird names, such as colors, possessive apostrophes, and alliterations. 
+This unit has a broad reach, because strings and characters are everywhere! Our task to find a data set to analyze with strings was almost too easy because the options are endless. I found a data set I liked that had a list of all birds that have been found in Minnesota. Using string functions and regular expressions, I ran a variety of tests to find patterns in bird names, such as colors, possessive apostrophes, and alliterations.
 
 ```{r}
 #| include: FALSE
@@ -40,7 +40,6 @@ mn_birds |>
   select(Name) |>
   filter(str_detect(Name, "[Rr]os[ey]"))
 ```
-
 
 ```{r}
 #| echo: false
@@ -72,9 +71,10 @@ A hot topic in the birding community is whether a large chunk of birds should be
 
 [This article](https://www.npr.org/2023/11/01/1209660753/these-american-birds-and-dozens-more-will-be-renamed-to-remove-human-monikers) by NPR highlights the way some of these bird's names have been exclusionary in the past, and how some are responding to this change. In an interview with Kenn Kaufman, a longtime author of bird guides, he tells of how he came around to the change.
 
-Another compelling reason for this change is to showcase a unique characteristic of the bird. For example, 'Townsend's Warbler' doesn't bring a vivid picture to one's mind, but 'Black-Throated Gray Warbler' does, or 'Hermit Warbler' indicates something about the bird's behavior. 
+Another compelling reason for this change is to showcase a unique characteristic of the bird. For example, 'Townsend's Warbler' doesn't bring a vivid picture to one's mind, but 'Black-Throated Gray Warbler' does, or 'Hermit Warbler' indicates something about the bird's behavior.
 
-This following table provides a look at the names of birds that will be changing in the near future! If you see birds you know and love, what do you think they should be named? The American Ornithological Society has committed to including the public in deciding new names, so your input could be taken into account! 
+This following table provides a look at the names of birds that will be changing in the near future! If you see birds you know and love, what do you think they should be named? The American Ornithological Society has committed to including the public in deciding new names, so your input could be taken into account!
+
 ```{r}
 #| echo: false
 #birds named after people, found through possessive apostrophe
@@ -87,7 +87,8 @@ mn_birds |>
 
 ### Alliterations
 
-As a fun little analysis of this data set, I decided to look for alliterations in these bird's names! Some of them are quite silly to say out loud. 
+As a fun little analysis of this data set, I decided to look for alliterations in these bird's names! Some of them are quite silly to say out loud.
+
 ```{r}
 #| echo: false
 #| warning: false
@@ -101,6 +102,7 @@ mn_birds |>
   kable() |>
   kable_styling()
 ```
+
 Some of these bird categories have more than one alliteration and seem like they could be a significant proportion of their category - especially sandpipers! I decided to see if these groupings of birds had high proportions of alliterative names.
 
 ```{r}
@@ -119,14 +121,15 @@ mn_birds |>
   geom_bar(position = "fill") +
   labs(title = "Proportion of alliterative bird names", subtitle = "Grouped by category of bird", x = "Proportion", fill = "Alliterative")
 ```
-As it turns out, the highest proportion of alliterative names in these groups is for the stilts and avocets - of which there are only two.
 
+As it turns out, the highest proportion of alliterative names in these groups is for the stilts and avocets - of which there are only two.
 
 ### Largest Birds
 
-Although this section doesn't use string functions to carry out analysis, we learned about tree maps in class, and I wanted to use an application of this visualization in my project. 
+Although this section doesn't use string functions to carry out analysis, we learned about tree maps in class, and I wanted to use an application of this visualization in my project.
 
 These following tree maps show the largest groups of birds on average by their wingspan, length, and body mass. Larger squares correspond with larger wingpans, lengths or body masses.
+
 ```{r}
 #| echo: false
 mn_birds |>
@@ -143,6 +146,7 @@ mn_birds |>
         vColor = "Category",
         title = "Mean Wingspan") 
 ```
+
 ```{r}
 #| echo: false
 mn_birds |>
@@ -159,6 +163,7 @@ mn_birds |>
         vColor = "Category",
         title = "Mean Length")
 ```
+
 ```{r}
 #| echo: false
 mn_birds |>
@@ -179,6 +184,7 @@ mn_birds |>
 ### Wordcloud
 
 For a final visualization, I made a wordcloud of the common words in bird's names. The larger words are ones that appear most frequently. I chose to make this visualization with the 120 most often occurring words. Some of the most common words, such as 'warbler' or 'sparrow', occur frequently because there are many types included in the data set.
+
 ```{r}
 #| echo: false
 mn_birds |>
@@ -188,4 +194,3 @@ mn_birds |>
   with(wordcloud(word, n, max.words = 120, 
                  colors = brewer.pal(8, "Dark2")))
 ```
-

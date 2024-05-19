@@ -1,0 +1,13 @@
+---
+title: "Collaborative Work"
+editor_options: 
+  chunk_output_type: console
+---
+
+### Data Science I final project:
+
+[This project looks at foragable trees in the twin cities](https://rconnect.stolaf.edu/connect/#/apps/2efec186-812d-4f91-a711-c8bb629fe5f6/access)
+
+### Date Science II final project:
+
+[This project is a shiny app that looks at data from the National Parks Service](https://jenna35.shinyapps.io/national_parks_shiny_app/)
